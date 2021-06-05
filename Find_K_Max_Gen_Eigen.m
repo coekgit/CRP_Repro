@@ -1,6 +1,6 @@
 function [Eigen_Vector,Eigen_Value]=Find_K_Max_Gen_Eigen(Matrix1,Matrix2,Eigen_NUM)
 
-[NN,NN]=size(Matrix1);
+[NN,Train_NUM]=size(Matrix1);
 
 %Note this is equivalent to; [V,S]=eig(St,SL); also equivalent to [V,S]=eig(Sn,St); %
 [V,S]=eig(Matrix1,Matrix2); 

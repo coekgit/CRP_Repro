@@ -9,12 +9,12 @@ clear all
 clc
 clear memory;
 
-name = 'YaleB_32x32'
+name = 'Yale_100x80'
 load (name);
 fea = double(fea);
-sele_num = 30;
-Eigen_NUM=195;
-lambda = 1e10;
+sele_num = 6;
+Eigen_NUM=53;
+lambda = 1e-2;
 nnClass = length(unique(gnd));  % The number of classes;
 num_Class = [];
 for i = 1:nnClass
