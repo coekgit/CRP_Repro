@@ -12,9 +12,9 @@ clear memory;
 name = 'Yale_100x80'
 load (name);
 fea = double(fea);
-sele_num = 6;
+sele_num = 4;
 Eigen_NUM=53;
-lambda = 1e-2;
+lambda = 1e-3;
 nnClass = length(unique(gnd));  % The number of classes;
 num_Class = [];
 for i = 1:nnClass
@@ -52,9 +52,6 @@ PCA_Projection = PCA_Projection(:,1:Eigen_NUM);
 Train_SET=PCA_Projection'*Train_Ma; % size of (Eigen_NUM,Train_NUM); % PCA-based 
 Test_SET=PCA_Projection'*Test_Ma; 
 
-%SPP method
-% [W] = SPP(Train_SET,Eigen_NUM);
-
 %CRP method
 [W] = CRP(Train_SET,Eigen_NUM,lambda);
 
@@ -63,7 +60,7 @@ Test_Maa  = W'*Test_SET;
 Train_Maa = Train_Maa./repmat(sqrt(sum(Train_Maa.^2)),[size(Train_Maa,1) 1]);
 Test_Maa  = Test_Maa./repmat(sqrt(sum(Test_Maa.^2)),[size(Test_Maa,1) 1]);    
 
-Mdl= fitcknn(Train_Maa', Train_Lab,'Distance','euclidean','NumNeighbors',1,'Standardize',1,'BreakTies','nearest');
+Mdl= fitcknn(Train_Maa', Train_Lab,'Distance','cosine','NumNeighbors',1,'Standardize',1,'BreakTies','nearest');
 [class_test] = predict(Mdl,Test_Maa'); 
 
 rate_acc = sum(Test_Lab == class_test)/length(Test_Lab)*100
